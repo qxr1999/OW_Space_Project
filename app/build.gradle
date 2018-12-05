@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+// 根据日期自动生成build号
+def calendar = Calendar.getInstance();
+def version = String.format("%d%02d%02d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+def time = String.format("%d%02d%02d%d%d", calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+def name = time + "build";
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "suxi.recviden.com.ow_space_project"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 1
+        versionCode Integer.parseInt(version)
+        vectorDrawables.useSupportLibrary = true
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            buildConfigField("boolean", "API_ENV", "true")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField("boolean", "API_ENV", "false")
+            minifyEnabled false
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //滑动菜单
+    implementation(name: 'SildeMenulibrary-release', ext: 'aar')
+    //在滚动的视图观测滚动事件的Android库：Android-ObservableScrollView
+    implementation(name: 'ObservableScrollView-release', ext: 'aar')
+    //butterknife注解
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //gson解析
+    implementation 'com.google.code.gson:gson:2.8.0'
+    //Joda-Time提供了一组Java类包用于处理包括ISO8601标准在内的date和time
+    implementation 'net.danlew:android.joda:2.9.3'
+    //OKhttp3及拦截器
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    //retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    //SQLBrite:一个响应式的数据查询框架，完美解决数据库和UI的同步更新
+    implementation 'com.squareup.sqlbrite:sqlbrite:0.7.0'
+    //rxjava,rxandroid
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.2.1'
+    //glide图片加载
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    //日志打印库
+    implementation 'com.orhanobut:logger:2.1.1'
+    //类似于facebook的内容预加载效果，先闪烁显示内容占据的区域，等加载完成后显示实际内容
+    implementation 'com.elyeproj.libraries:loaderviewlibrary:1.2.1'
+    //下拉刷新库
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
+    //jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容
+    implementation 'org.jsoup:jsoup:1.11.1'
+    //Easypermissions简化了Android M的运行时权限的申请、结果处理、判断等步骤
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    //AVLoadingIndicatorView是一个实现了各种各样加载效果的库，每一种效果都很精美
+    implementation 'com.wang.avi:library:2.1.3'
+    //android 节操视频播放器
+    implementation 'fm.jiecao:jiecaovideoplayer:4.8.2'
+    //google dagger2依赖注入库
+    implementation 'com.google.dagger:dagger:2.14.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    //java注解
+    implementation 'org.glassfish:javax.annotation:10.0-b28'
+    //字体
+    implementation 'uk.co.chrisjenx:calligraphy:2.2.0'
+}
